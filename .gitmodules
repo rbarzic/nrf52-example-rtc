@@ -1,0 +1,4 @@
+[submodule "nrf5x-dk-gcc"]
+	path = nrf5x-dk-gcc
+	url = https://github.com/rbarzic/nrf5x-dk-gcc.git
+	branch = master
