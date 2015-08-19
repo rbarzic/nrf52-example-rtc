@@ -63,5 +63,7 @@ int main(void)
     nrf_rtc_int_enable(NRF_RTC0,NRF_RTC_INT_TICK_MASK);
     nrf_rtc_task_trigger(NRF_RTC0,NRF_RTC_TASK_START);
 
-    while(1);
+    while(1) {
+        __WFI();        
+    };
 }
