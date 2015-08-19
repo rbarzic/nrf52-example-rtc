@@ -34,7 +34,8 @@ static unsigned irq_counter = 0;
 void RTC0_IRQHandler(void) {
     nrf_rtc_event_clear(NRF_RTC0,NRF_RTC_EVENT_TICK);
     irq_counter++;
-    if(irq_counter %8 == 0) nrf_gpio_pin_toggle(PIN_LED);
+    // every 8 IRQs, we toggle the led -> 1Hz rate
+    if(irq_counter %8 == 0) nrf_gpio_pin_toggle(PIN_LED); 
 }
 
 int main(void)
