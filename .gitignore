@@ -30,3 +30,7 @@
 
 # Debug files
 *.dSYM/
+*.d
+/TAGS
+/.dir-locals.el
+/test.bin
