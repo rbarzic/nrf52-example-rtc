@@ -27,7 +27,7 @@
 #include "core_cm4.h"
 #endif
 
-#define PIN_LED 19 // LED1   
+#define PIN_LED 19 // LED1
 
 static unsigned irq_counter = 0;
 
@@ -35,7 +35,7 @@ void RTC0_IRQHandler(void) {
     nrf_rtc_event_clear(NRF_RTC0,NRF_RTC_EVENT_TICK);
     irq_counter++;
     // every 8 IRQs, we toggle the led -> 1Hz rate
-    if(irq_counter %8 == 0) nrf_gpio_pin_toggle(PIN_LED); 
+    if(irq_counter %8 == 0) nrf_gpio_pin_toggle(PIN_LED);
 }
 
 int main(void)
@@ -45,7 +45,7 @@ int main(void)
     nrf_gpio_cfg_output(PIN_LED);
     nrf_gpio_pin_set(PIN_LED); // LED is off
 
-    
+
     // Irq setup
     NVIC_SetPriority(RTC0_IRQn, 15); // Lowes priority
     NVIC_ClearPendingIRQ(RTC0_IRQn);
@@ -59,11 +59,11 @@ int main(void)
     // Set prescaler to the max value (12-bit)
     // -> 8Hz counter frequency
     nrf_rtc_prescaler_set(NRF_RTC0,(1<<12) -1);
-    nrf_rtc_event_enable(NRF_RTC0, NRF_RTC_EVENT_TICK);
+    nrf_rtc_event_enable(NRF_RTC0, NRF_RTC_INT_TICK_MASK); /* yes INT mask must be used here */
     nrf_rtc_int_enable(NRF_RTC0,NRF_RTC_INT_TICK_MASK);
     nrf_rtc_task_trigger(NRF_RTC0,NRF_RTC_TASK_START);
 
     while(1) {
-        __WFI();        
+        __WFI();
     };
 }
